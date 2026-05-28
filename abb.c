@@ -55,6 +55,25 @@ void emOrdem(No *raiz) {
     }
 }
 
+//pre ordem ???
+
+//pos ordem ???
+
+No* buscar(No *raiz, int valor) {
+
+    if (raiz == NULL || raiz->valor == valor) {
+        return raiz;
+    }
+
+    if (valor < raiz->valor) {
+        return buscar(raiz->esq, valor);
+    }
+
+    return buscar(raiz->dir, valor);
+}
+
+
+
 
 int main() {
 
