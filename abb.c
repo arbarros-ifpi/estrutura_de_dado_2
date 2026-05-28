@@ -87,9 +87,23 @@ int main() {
     raiz = inserir(raiz, 60);
     raiz = inserir(raiz, 80);
     
-    printf("Percurso em ordem:\n");
+    //printf("Percurso em ordem:\n");
 
-    emOrdem(raiz);
+    //emOrdem(raiz);
+
+    int valor;
+
+    printf("\n\nDigite um valor para buscar: ");
+    scanf("%d", &valor);
+
+    No *resultado = buscar(raiz, valor);
+
+    if (resultado != NULL) {
+        printf("Valor encontrado!\n");
+    }
+    else {
+        printf("Valor nao encontrado!\n");
+    }
 
     return 0;
 }
