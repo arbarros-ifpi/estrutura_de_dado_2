@@ -70,8 +70,9 @@ No* buscar(No *raiz, int valor) {
 }
 
 //Remoção
+//Remoção
 No* remover(No *raiz, int valor) {
-
+    No *temp = NULL;
     // árvore vazia
     if (raiz == NULL) {
         return NULL;
@@ -88,7 +89,7 @@ No* remover(No *raiz, int valor) {
 
     // encontrou o nó
     else {
-
+        
         // CASO 1 - sem filhos
         if (raiz->esq == NULL && raiz->dir == NULL) {
 
@@ -100,7 +101,7 @@ No* remover(No *raiz, int valor) {
         // CASO 2 - um filho à direita
         else if (raiz->esq == NULL) {
 
-            No *temp = raiz->dir;
+            temp = raiz->dir;
 
             free(raiz);
 
@@ -110,23 +111,18 @@ No* remover(No *raiz, int valor) {
         // CASO 2 - um filho à esquerda
         else if (raiz->dir == NULL) {
 
-            No *temp = raiz->esq;
+            temp = raiz->esq;
 
             free(raiz);
 
             return temp;
-        
-         // CASO 3 - dois filhos
-        //No *temp = menorValor(raiz->dir);
-
-        raiz->valor = temp->valor;
-
-        //raiz->dir = remover(raiz->dir, temp->valor);
-        
         }
-        return raiz;
-    }
+    raiz->dir = temp;
+    //raiz->valor = temp->valor;
+    return raiz;
 }
+}
+
 
 int main() {
 
@@ -147,9 +143,9 @@ int main() {
     printf("Antes de remover elementos:\n");
     emOrdem(raiz);
 
-    raiz = remover(raiz->dir, 60);
+    raiz = remover(raiz, 80);
 
-    printf("\n\nDepois de remover 60:\n");
+    printf("\n\nDepois de remover elemento:\n");
     emOrdem(raiz);
 
     return 0;
