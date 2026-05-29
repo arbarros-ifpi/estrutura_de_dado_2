@@ -60,20 +60,73 @@ void emOrdem(No *raiz) {
 //pos ordem ???
 
 No* buscar(No *raiz, int valor) {
-
     if (raiz == NULL || raiz->valor == valor) {
         return raiz;
     }
-
     if (valor < raiz->valor) {
         return buscar(raiz->esq, valor);
     }
-
     return buscar(raiz->dir, valor);
 }
 
+//Remoção
+No* remover(No *raiz, int valor) {
 
+    // árvore vazia
+    if (raiz == NULL) {
+        return NULL;
+    }
 
+    // busca do nó
+    if (valor < raiz->valor) {
+        raiz->esq = remover(raiz->esq, valor);
+    }
+
+    else if (valor > raiz->valor) {
+        raiz->dir = remover(raiz->dir, valor);
+    }
+
+    // encontrou o nó
+    else {
+
+        // CASO 1 - sem filhos
+        if (raiz->esq == NULL && raiz->dir == NULL) {
+
+            free(raiz);
+
+            return NULL;
+        }
+
+        // CASO 2 - um filho à direita
+        else if (raiz->esq == NULL) {
+
+            No *temp = raiz->dir;
+
+            free(raiz);
+
+            return temp;
+        }
+
+        // CASO 2 - um filho à esquerda
+        else if (raiz->dir == NULL) {
+
+            No *temp = raiz->esq;
+
+            free(raiz);
+
+            return temp;
+        
+         // CASO 3 - dois filhos
+        //No *temp = menorValor(raiz->dir);
+
+        raiz->valor = temp->valor;
+
+        //raiz->dir = remover(raiz->dir, temp->valor);
+        
+        }
+        return raiz;
+    }
+}
 
 int main() {
 
@@ -86,24 +139,18 @@ int main() {
     raiz = inserir(raiz, 40);
     raiz = inserir(raiz, 60);
     raiz = inserir(raiz, 80);
+    raiz = inserir(raiz, 90);
+    raiz = inserir(raiz, 35);
+    raiz = inserir(raiz, 25);
+
     
-    //printf("Percurso em ordem:\n");
+    printf("Antes de remover elementos:\n");
+    emOrdem(raiz);
 
-    //emOrdem(raiz);
+    raiz = remover(raiz->dir, 60);
 
-    int valor;
-
-    printf("\n\nDigite um valor para buscar: ");
-    scanf("%d", &valor);
-
-    No *resultado = buscar(raiz, valor);
-
-    if (resultado != NULL) {
-        printf("Valor encontrado!\n");
-    }
-    else {
-        printf("Valor nao encontrado!\n");
-    }
+    printf("\n\nDepois de remover 60:\n");
+    emOrdem(raiz);
 
     return 0;
 }
